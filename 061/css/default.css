@@ -1,0 +1,27 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	
+	font-family: Arial;
+}
+
+body {
+	text-align: center;
+	background: rgba(0, 150, 152, .5);
+}
+
+h1, h2 {
+	margin: 1em;
+}
+
+#unencrypted,
+#encrypted {
+	width: 80%;
+	border: 1px solid black;
+	padding: 1em;
+}
+
+#encrypted {
+	resize: none;
+}
