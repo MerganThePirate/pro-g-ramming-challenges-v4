@@ -1,0 +1,45 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	
+	font-family: Arial;
+}
+
+body {
+	text-align: center;
+	background: rgba(0, 150, 152, .5);
+}
+
+h1, h2 {
+	margin: 1em;
+}
+
+#input,
+#histogram {
+	border: 1px solid black;
+}
+
+#input {
+	width: 80%;
+	padding: 1em;
+}
+
+#histogram {
+	width: 50%;
+	margin: 0em auto 3em auto;
+	border-collapse: collapse;
+	background: white;
+}
+
+#histogram tr:nth-child(odd) {
+	background: rgba(0, 0, 0, .05);
+}
+
+#histogram tr:first-child {
+	background: rgba(0, 0, 0, .2);
+}
+#histogram tr > td,th {
+	border: 1px solid black;
+	padding: .3em;
+}
