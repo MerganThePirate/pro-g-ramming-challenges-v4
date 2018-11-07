@@ -1,0 +1,35 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+
+	font-family: Arial;
+}
+
+body {
+	text-align: center;
+	background: rgba(0, 150, 152, .5);
+}
+
+h1, h2 {
+	margin: 1em;
+}
+
+#input,
+#output {
+	border: 1px solid black;
+	width: 80%;
+	height: 3em;
+	padding: 1em;
+	margin: auto;
+	background: #FFF;
+}
+
+.flash {
+	animation: flash 1s;
+}
+
+@keyframes flash {
+	from	{ background-color: #CCF; }
+	to		{ background-color: #FFF; }
+}
