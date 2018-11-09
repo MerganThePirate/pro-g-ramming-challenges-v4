@@ -1,0 +1,16 @@
+* {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+
+	font-family: Arial;
+}
+
+body {
+	text-align: center;
+	background: rgba(0, 150, 152, .5);
+}
+
+h1 {
+	margin: 1em;
+}
