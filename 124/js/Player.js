@@ -13,37 +13,17 @@ Player.States = {
 }
 Player.currentState = Player.States.Middle;
 Player.move = function (input) {
-  switch (Player.currentState) {
-    case Player.States.Window_Left:
-      if (input === Input.Right) {
-        Player.currentState = Player.States.Left;
+  switch (input) {
+    case Input.Left:
+      if (Player.currentState !== Player.States.Window_Left) {
+        Player.currentState--;
       }
     break;
-    case Player.States.Left:
-      if (input === Input.Left) {
-        Player.currentState = Player.States.Window_Left;
-      } else if (input === Input.Right) {
-        Player.currentState = Player.States.Middle;
+    case Input.Right:
+      if (Player.currentState !== Player.States.Window_Right) {
+        Player.currentState++;
       }
     break;
-    case Player.States.Middle:
-      if (input === Input.Left) {
-        Player.currentState = Player.States.Left;
-      } else if (input === Input.Right) {
-        Player.currentState = Player.States.Right;
-      }
-    break;
-    case Player.States.Right:
-      if (input === Input.Left) {
-        Player.currentState = Player.States.Middle;
-      } else if (input === Input.Right) {
-        Player.currentState = Player.States.Window_Right;
-      }
-    break;
-    case Player.States.Window_Right:
-      if (input === Input.Left) {
-        Player.currentState = Player.States.Right;
-      }
   }
 }
 Player.reset = function () {
