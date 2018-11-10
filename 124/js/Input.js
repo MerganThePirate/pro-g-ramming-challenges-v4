@@ -5,6 +5,7 @@ export default class Input {
 }
 Input.Left = 0;
 Input.Right = 1;
+Input.Pause = 2;
 Input.lastInput = null;
 Input.isPressed = false;
 Input.Release = function (e) {
@@ -24,8 +25,10 @@ Input.Press = function (e) {
     case "ArrowRight":
       Input.lastInput = Input.Right;
     break;
-    default:
-      Input.lastInput = null;
+    case "P":
+    case "p":
+      Input.lastInput = Input.Pause;
+    break;
   }
 }
 Input.getInput = function () {
