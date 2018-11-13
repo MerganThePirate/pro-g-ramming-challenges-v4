@@ -3,6 +3,7 @@ import Input from "./Input.js";
 import Leak from "./Leak.js";
 import Mistake from "./Mistake.js";
 import Bucket from "./Bucket.js";
+import Helper from "./Helper.js";
 
 export default class Game {
   constructor() {
@@ -47,17 +48,24 @@ Game.update = function (timestamp) {
       }
       Input.clear();
 
+      Helper.update(dx);
+      if (Bucket.List[0].count() > 0) {
+        switch (Player.currentState) {
+          case Player.States.Window_Left:
+            Game._checkBucketThrow(Helper.States.LeftMost);
+          break;
+          case Player.States.Window_Right:
+            Game._checkBucketThrow(Helper.States.RightMost);
+          break;
+        }
+      }
+
       Leak.update(dx);
       if (Leak.caught) {
         Leak.caught = false;
         Bucket.List[0].catch();
       } else if (Leak.active.currentState === Leak.States.Failed) {
-        Mistake.List[0].increase();
-        if (Mistake.endGame(Mistake.List[0])) {
-          Game.currentState = Game.States.GameOver;
-        } else {
-          Game.currentState = Game.States.Mistake;
-        }
+        Game._increaseAndCheckMistake(Mistake.List[0]);
       }
     break;
     /** Mistake */
@@ -87,7 +95,21 @@ Game.reset = function () {
   Input.clear();
   Game.startTime = null;
 }
-
+Game._checkBucketThrow = function (targetHelper) {
+  if (Helper.currentState !== targetHelper) {
+    Game._increaseAndCheckMistake(Mistake.List[1]);
+  } else {
+    Bucket.reset();
+  }
+}
+Game._increaseAndCheckMistake = function (mistake) {
+  mistake.increase();
+  if (Mistake.endGame(mistake)) {
+    Game.currentState = Game.States.GameOver;
+  } else {
+    Game.currentState = Game.States.Mistake;
+  }
+}
 Game.draw = function () {
   /** Beautifully Basic */
   console.clear();
@@ -164,7 +186,20 @@ Game.draw = function () {
     break;
   }
   console.log(" XX" + e + "XX ");
-  console.log(" B       ");
+  switch (Helper.currentState) {
+    case Helper.States.LeftMost:
+      console.log("uB       ");
+    break;
+    case Helper.States.Left:
+      console.log("   B     ");
+    break;
+    case Helper.States.Right:
+      console.log("     B   ");
+    break;
+    case Helper.States.RightMost:
+      console.log("       Bu");
+    break;
+  }
   console.log(" XXXXXXX ");
   console.log("C       C");
   if (Game.currentState === Game.States.Pause) {
@@ -173,5 +208,5 @@ Game.draw = function () {
   if (Game.currentState === Game.States.GameOver) {
     console.log("GameOver");
   }
-  console.log(Bucket.List[0].count);
+  console.log(Bucket.List[0].count());
 }

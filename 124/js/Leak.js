@@ -25,7 +25,7 @@ Leak.States = {
   Failed: 5
 }
 Leak.active = null;
-Leak.wait = 1000;
+Leak.wait = 700;
 Leak.counter = 0;
 Leak.step = 0;
 Leak.caugth = false;

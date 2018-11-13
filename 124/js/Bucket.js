@@ -1,19 +1,25 @@
 export default class Bucket {
   constructor(max) {
     this.max = max;
-    this.count = 0;
+    this._count = 0;
   }
 
   catch() {
-    this.count++;
+    this._count++;
+  }
+
+  count() {
+    return this._count;
   }
 
   empty() {
-    this.count = 0;
+    this._count = 0;
   }
 
+
+
   isFull() {
-    return this.count === this.max;
+    return this._count === this.max;
   }
 }
 Bucket.List = [
@@ -21,6 +27,6 @@ Bucket.List = [
 ];
 Bucket.reset = function() {
   Bucket.List.forEach((bucket)=>{
-    bucket.count = 0;
+    bucket._count = 0;
   });
 }
