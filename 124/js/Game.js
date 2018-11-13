@@ -2,6 +2,7 @@ import Player from "./Player.js";
 import Input from "./Input.js";
 import Leak from "./Leak.js";
 import Mistake from "./Mistake.js";
+import Bucket from "./Bucket.js";
 
 export default class Game {
   constructor() {
@@ -47,7 +48,10 @@ Game.update = function (timestamp) {
       Input.clear();
 
       Leak.update(dx);
-      if (Leak.active.currentState === Leak.States.Failed) {
+      if (Leak.caught) {
+        Leak.caught = false;
+        Bucket.List[0].catch();
+      } else if (Leak.active.currentState === Leak.States.Failed) {
         Mistake.List[0].increase();
         if (Mistake.endGame(Mistake.List[0])) {
           Game.currentState = Game.States.GameOver;
@@ -62,6 +66,7 @@ Game.update = function (timestamp) {
       if (Mistake.resumeGame()) {
         Leak.reset();
         Input.clear();
+        Bucket.reset();
         Game.currentState = Game.States.Game;
       }
     break;
@@ -168,4 +173,5 @@ Game.draw = function () {
   if (Game.currentState === Game.States.GameOver) {
     console.log("GameOver");
   }
+  console.log(Bucket.List[0].count);
 }
